@@ -19,9 +19,7 @@
  * Create Page that pulls content of feed not just link
  * 
  * Style Top of Page, or move to side bar
- * Locations
-/home/listcarboncredits/public_html/oc-content/themes/sigma/header.php -82
-/home/listcarboncredits/public_html/oc-content/themes/sigma/item.php - 100
+ * 
  * 
  * 
  * 
@@ -66,7 +64,7 @@ function rssfeedpull_install() {
     }
   }
   function show_rssfeedpull() {
-    echo getFeed("https://www.carboncreditcart.com/carbon-credit-cart-blog/feed/");
+    echo getFeed("http://www.example.com/feed");
   }
 
 
