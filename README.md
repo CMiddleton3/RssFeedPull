@@ -1,2 +1,2 @@
 # RssFeedPull
-An OsClass Plugin for Pulling RSS Feed for Dynamic Content. 
+An OsClass Plugin for Pulling RSS Feeds for Dynamic Content. 
