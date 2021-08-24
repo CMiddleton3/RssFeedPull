@@ -1,7 +1,7 @@
 <?php
 /*
   Plugin Name: RSS Feed Pull
-  Plugin URI: https://example.com
+  Plugin URI: https://www.clarencemiddleton.com/rssfeedpull/ 
   Description: Pulls Dynamic Feed content into you OsClass Site
   Version: 1.0.0
   Author: Clarence Middleton
