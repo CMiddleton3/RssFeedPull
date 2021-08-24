@@ -83,6 +83,4 @@ if(osc_version()<320) {
     osc_add_hook('admin_menu', 'rssfeedpull_admin_menu');
   } else {
     osc_add_hook('admin_menu_init', 'rssfeedpull_admin_menu');
-  } 
-  
-?>
+  }
