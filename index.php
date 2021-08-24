@@ -10,43 +10,29 @@
   Short Name: rssfeedpull
   Plugin update URI: rssfeedpull
   Support URI: https://forums.osclasspoint.com/free-plugins/
-  Product Key: RvR9IqCQA0IVv57n7P
+  Product Key: 
 */
 
 /*********************
+ * ToDo:
  * Add Option to include Link to RSS Feeds you want
  * Add Option to rotate by different feed
  * Create Page that pulls content of feed not just link
  * 
- * Style Top of Page, or move to side bar
- * 
- * 
- * 
- * 
- * 
+ * Style Top of Page, or move to side bar 
  */
 
 
 function rssfeedpull_install() {
-    @mkdir(osc_content_path().'uploads/rssfeedpull/');
     $conn= getConnection();
-    osc_set_preference('upload_path', osc_content_path().'uploads/rssfeedpull/', 'rssfeedpull', 'STRING');
-    osc_set_preference('upload_url', osc_base_url().'oc-content/uploads/rssfeedpull/', 'rssfeedpull', 'STRING');
-    osc_set_preference('code_size', '2', 'rssfeedpull', 'INTEGER');
+    osc_set_preference('rssfeed_url', '', 'rssfeedpull', 'STRING');
     $conn->commit();
   }
 
   function rssfeedpull_uninstall() {
     $conn= getConnection();
-    osc_delete_preference('upload_path', 'rssfeedpull');
-    osc_delete_preference('upload_url', 'rssfeedpull');
-    osc_delete_preference('code_size', 'rssfeedpull');
-    $conn->commit();
-    $files = glob(osc_get_preference('upload_path', 'rssfeedpull')."*.png");
-    foreach($files as $f) {
-      @unlink($f);
-    }
-    @rmdir(osc_get_preference('upload_path', 'rssfeedpull'));
+    osc_delete_preference('rssfeed_url', 'rssfeedpull');    
+    $conn->commit();    
   }
 
 
@@ -56,34 +42,36 @@ function rssfeedpull_install() {
       echo '<h3><a href="#">RSS Feed Pull</a></h3>
       <ul>        
         <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'rssfeedpull') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'rssfeedpull') . '</a></li>
       </ul>';
     } else {
       osc_add_admin_submenu_divider('plugins', 'RSS Feed Pull', 'rssfeedpulls_divider', 'administrator');
-      // osc_add_admin_submenu_page('plugins', __('RSS Feed Pull Settings', 'rssfeedpull'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'rssfeedpull_settings', 'administrator');
+      osc_add_admin_submenu_page('plugins', __('RSS Feed Pull Settings', 'rssfeedpull'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'rssfeedpull_settings', 'administrator');
       osc_add_admin_submenu_page('plugins', __('RSS Feed Pull Help', 'rssfeedpull'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'rssfeedpull_help', 'administrator');
     }
   }
   function show_rssfeedpull() {
-    echo getFeed("http://www.example.com/feed");
+    echo getFeed(osc_get_preference('rssfeed_url', 'rssfeedpull'));
+    
+
   }
 
 
   function getFeed($feed_url) {
      
-    $content = file_get_contents($feed_url);
-    $x = new SimpleXmlElement($content);
-     
-    echo "<ul>";
-     
-    foreach($x->channel->item as $entry) {
-        echo "<li><a href='$entry->link' title='$entry->title'>" . $entry->title . "</a></li>";
-    }
-    echo "</ul>";
+        if(($feed_url !== null) && filter_var($feed_url, FILTER_VALIDATE_URL)) {
+            $content = file_get_contents($feed_url);
+            $x = new SimpleXmlElement($content);
+            
+            echo "<ul>";
+            
+            foreach($x->channel->item as $entry) {
+                echo "<li><a href='$entry->link' title='$entry->title'>" . $entry->title . "</a></li>";
+            }
+            echo "</ul>";
+        }
   }
   
-
-
-
   /**
  * ADD HOOKS
  */

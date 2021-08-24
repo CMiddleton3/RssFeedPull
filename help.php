@@ -9,7 +9,7 @@
         <br/>
         <h3><?php _e('IMPORTANT', 'rssfeedpull');?></h3>
         <p><?php _e('In order to work, you will need to place the following lines whereever you want to display the RSS Feed.', 'rssfeedpull');?></p>
-        <pre>&lt;?php show_rssfeedpull(); ?&gt;</pre>
+        <pre>&lt;?php if (function_exists (show_rssfeedpull)) show_rssfeedpull(); ?&gt;</pre>
         <br />
         <br />
       </fieldset>
