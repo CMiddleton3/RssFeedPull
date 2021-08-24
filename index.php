@@ -13,16 +13,6 @@
   Product Key: 
 */
 
-/*********************
- * ToDo:
- * Add Option to include Link to RSS Feeds you want
- * Add Option to rotate by different feed
- * Create Page that pulls content of feed not just link
- * 
- * Style Top of Page, or move to side bar 
- */
-
-
 function rssfeedpull_install() {
     $conn= getConnection();
     osc_set_preference('rssfeed_url', '', 'rssfeedpull', 'STRING');
